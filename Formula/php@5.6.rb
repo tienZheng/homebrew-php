@@ -476,7 +476,6 @@ index 168c465f8d..6c087d152f 100644
      then
        PHP_CHECK_LIBRARY($iconv_lib_name, libiconv, [
          found_iconv=yes
-         found_iconv=yes
 diff --git a/Zend/zend_compile.h b/Zend/zend_compile.h
 index a0955e34fe..09b4984f90 100644
 --- a/Zend/zend_compile.h
@@ -485,7 +484,7 @@ index a0955e34fe..09b4984f90 100644
 
  #define EX(element) execute_data.element
 
--#define EX_TMP_VAR(ex, n)         ((temp_variable*)(((char*)(ex)) + ((int)(n))))
+-#define EX_TMP_VAR(ex, n)	   ((temp_variable*)(((char*)(ex)) + ((int)(n))))
 -#define EX_TMP_VAR_NUM(ex, n)  (EX_TMP_VAR(ex, 0) - (1 + (n)))
 -
  #define EX_CV_NUM(ex, n)       (((zval***)(((char*)(ex))+ZEND_MM_ALIGNED_SIZE(sizeof(zend_execute_data))))+(n))
@@ -501,14 +500,13 @@ index a7af67bc13..ae71a5c73f 100644
 
 +static zend_always_inline temp_variable *EX_TMP_VAR(void *ex, int n)
 +{
-+       return (temp_variable *)((zend_uintptr_t)ex + n);
++	return (temp_variable *)((zend_uintptr_t)ex + n);
 +}
 +static inline temp_variable *EX_TMP_VAR_NUM(void *ex, int n)
 +{
-+       return (temp_variable *)((zend_uintptr_t)ex - (1 + n) * sizeof(temp_variable));
++	return (temp_variable *)((zend_uintptr_t)ex - (1 + n) * sizeof(temp_variable));
 +}
 +
  static zend_always_inline void i_zval_ptr_dtor(zval *zval_ptr ZEND_FILE_LINE_DC TSRMLS_DC)
  {
-        if (!Z_DELREF_P(zval_ptr)) {
-
+	if (!Z_DELREF_P(zval_ptr)) {
