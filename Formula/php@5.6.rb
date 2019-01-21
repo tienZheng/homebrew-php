@@ -511,4 +511,4 @@ index a7af67bc13..ae71a5c73f 100644
  static zend_always_inline void i_zval_ptr_dtor(zval *zval_ptr ZEND_FILE_LINE_DC TSRMLS_DC)
  {
         if (!Z_DELREF_P(zval_ptr)) {
-(END)
+
